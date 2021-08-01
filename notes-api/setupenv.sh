@@ -1,0 +1,3 @@
+export OKTA_OAUTH2_ISSUER=https://dev-879975.okta.com/oauth2/default
+export OKTA_OAUTH2_CLIENT_ID=0oadua5oyLuI5kSDe356
+export OKTA_OAUTH2_CLIENT_SECRET=MctUA-zdkZV9hjrKcMuw-7pY_nC1vGIDOfZXlbX_
