@@ -4,6 +4,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 
+/*
 @EnableWebSecurity
 class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
@@ -16,4 +17,4 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .oauth2ResourceServer().jwt()
         //@formatter:on
     }
-}
+}*/
