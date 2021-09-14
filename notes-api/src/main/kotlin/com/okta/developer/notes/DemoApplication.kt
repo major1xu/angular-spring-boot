@@ -12,9 +12,30 @@ import org.springframework.data.rest.core.annotation.HandleBeforeCreate
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
+import org.springframework.boot.web.servlet.FilterRegistrationBean
+import org.springframework.context.annotation.Bean
+import org.springframework.core.Ordered
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.filter.CorsFilter
 
 @SpringBootApplication
-class DemoApplication
+class DemoApplication {
+
+	@Bean
+	fun simpleCorsFilter(): FilterRegistrationBean<CorsFilter> {
+		val source = UrlBasedCorsConfigurationSource()
+		val config = CorsConfiguration()
+		config.allowCredentials = true
+		config.allowedOrigins = listOf("http://localhost:4200")
+		config.allowedMethods = listOf("*");
+		config.allowedHeaders = listOf("*")
+		source.registerCorsConfiguration("/**", config)
+		val bean = FilterRegistrationBean(CorsFilter(source))
+		bean.order = Ordered.HIGHEST_PRECEDENCE
+		return bean
+	}
+}
 
 fun main(args: Array<String>) {
 	runApplication<DemoApplication>(*args)
@@ -27,7 +48,9 @@ data class Note(@Id @GeneratedValue var id: Long? = null,
 				@JsonIgnore var user: String? = null)
 
 @RepositoryRestResource
-interface NotesRepository : JpaRepository<Note, Long>
+interface NotesRepository : JpaRepository<Note, Long> {
+	fun findAllByUser(name: String): List<Note>
+}
 
 @Component
 @RepositoryEventHandler(Note::class)
